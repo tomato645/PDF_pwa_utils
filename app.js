@@ -33,6 +33,8 @@ async function handleFiles(file) {
     const arrayBuffer = await file.arrayBuffer();
     const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
 
+    imageUrls = []; // 画像URLをリセット
+
     for (let i = 1; i <= pdf.numPages; i++) {
         if (cancelRequested) break;
         loadingText.textContent = `📄 ${i}/${pdf.numPages} ページ変換中...`;
@@ -47,27 +49,29 @@ async function handleFiles(file) {
         await page.render({ canvasContext: context, viewport }).promise;
 
         const imageURL = canvas.toDataURL('image/png');
-        const a = document.createElement('a');
-        a.href = imageURL;
-        a.download = `page-${i}.png`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+        imageUrls.push({ url: imageURL, name: `page-${i}.png` });
 
         // 少し待機してメモリ開放の猶予を（スマホ対策）
         await new Promise(res => setTimeout(res, 100));
     }
 
     loadingText.textContent = '✅ 変換完了しました！';
+    downloadAllBtn.classList.remove('hidden');
 }
 
-downloadAllBtn.addEventListener('click', () => {
+downloadAllBtn.addEventListener('click', async () => {
     for (const { url, name } of imageUrls) {
         const a = document.createElement('a');
         a.href = url;
         a.download = name;
         document.body.appendChild(a);
+
+        // 順番にダウンロードを開始
         a.click();
+
+        // ダウンロード間に少し待機
+        await new Promise(res => setTimeout(res, 500));
+
         document.body.removeChild(a);
     }
 });
