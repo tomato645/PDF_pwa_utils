@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF to Image Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="manifest" href="manifest.json" />
+</head>
+
+<body class="bg-gray-100 text-gray-800 min-h-screen p-6">
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-2xl font-bold mb-4">📄 PDF → 画像 変換アプリ</h1>
+
+        <!-- アップロードエリア -->
+        <div id="drop-zone"
+            class="border-4 border-dashed border-gray-300 rounded-lg p-6 mb-4 text-center bg-white hover:bg-gray-50 cursor-pointer">
+            <p class="mb-2">📎 PDFファイルをここにドロップ、またはクリックして選択</p>
+            <input type="file" id="pdf-upload" accept="application/pdf" class="hidden" />
+        </div>
+
+        <!-- ローディング -->
+        <div id="loading" class="hidden text-center mb-4 text-blue-600 font-semibold">📥 変換中...</div>
+        <div id="loading" class="hidden text-center mb-4 text-blue-600 font-semibold"></div>
+
+
+        <!-- 出力エリア -->
+        <button id="download-all" class="bg-green-500 text-white px-4 py-2 mb-4 rounded hover:bg-green-600 hidden">
+            ⬇️ すべて保存
+        </button>
+
+        <div id="output" class="grid grid-cols-1 gap-6"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
