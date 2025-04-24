@@ -20,12 +20,8 @@
             <input type="file" id="pdf-upload" accept="application/pdf" class="hidden" />
         </div>
 
-        <!-- ローディング -->
         <div id="loading" class="hidden text-center mb-4 text-blue-600 font-semibold">📥 変換中...</div>
-        <div id="loading" class="hidden text-center mb-4 text-blue-600 font-semibold"></div>
 
-
-        <!-- 出力エリア -->
         <button id="download-all" class="bg-green-500 text-white px-4 py-2 mb-4 rounded hover:bg-green-600 hidden">
             ⬇️ すべて保存
         </button>
@@ -34,6 +30,7 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.9.179/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="app.js"></script>
 </body>
 
